@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator salarizare polițiști de penitenciare</title>
+    <style>
+        :root {
+            --bg: #f4f7fb;
+            --card: #ffffff;
+            --primary: #1e3a5f;
+            --primary-light: #2a5298;
+            --accent: #e8a33d;
+            --text: #1c2b3a;
+            --muted: #5b6f82;
+            --border: #d8e1ec;
+            --shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+            --radius: 12px;
+            --radius-sm: 8px;
+            --success: #2e7d32;
+            --danger: #c62828;
+        }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.5;
+            padding: 20px;
+            min-height: 100vh;
+        }
+        .app-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        header {
+            background: var(--primary);
+            color: #fff;
+            padding: 24px 30px;
+            border-radius: var(--radius);
+            margin-bottom: 25px;
+            box-shadow: var(--shadow);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+        header h1 {
+            font-size: 1.7rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+        header .subtitle {
+            font-size: 0.95rem;
+            opacity: 0.85;
+        }
+        .badge {
+            background: var(--accent);
+            color: #1c2b3a;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        .tab-btn {
+            padding: 12px 20px;
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: var(--muted);
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .tab-btn:hover {
+            border-color: var(--primary-light);
+            color: var(--primary);
+        }
+        .tab-btn.active {
+            background: var(--primary);
+            color: #fff;
+            border-color: var(--primary);
+            box-shadow: 0 4px 10px rgba(30, 58, 95, 0.25);
+        }
+        .panel {
+            display: none;
+            animation: fadeIn 0.25s ease;
+        }
+        .panel.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(5px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+        @media (max-width: 900px) {
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+        }
+        .card {
+            background: var(--card);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 24px;
+            margin-bottom: 25px;
+            border: 1px solid var(--border);
+        }
+        .card h2 {
+            font-size: 1.25rem;
+            margin-bottom: 16px;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 2px solid #edf2f7;
+            padding-bottom: 12px;
+        }
+        .card h3 {
+            font-size: 1rem;
+            color: var(--primary-light);
+            margin: 16px 0 8px;
+        }
+        .form-group {
+            margin-bottom: 14px;
+        }
+        label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+            color: #34495e;
+        }
+        .hint {
+            font-size: 0.78rem;
+            color: var(--muted);
+            font-weight: 400;
+            margin-left: 4px;
+        }
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            font-size: 0.95rem;
+            font-family: inherit;
+            background: #fafbfc;
+            transition: border 0.2s, box-shadow 0.2s;
+        }
+        input:focus,
+        select:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.1);
+            background: #fff;
+        }
+        .checkbox-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin: 8px 0;
+        }
+        .checkbox-row input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--primary);
+            cursor: pointer;
+        }
+        .checkbox-row label {
+            margin: 0;
+            font-weight: 500;
+            cursor: pointer;
+        }
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: var(--radius-sm);
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-primary {
+            background: var(--primary);
+            color: #fff;
+        }
+        .btn-primary:hover {
+            background: var(--primary-light);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 15px rgba(30, 58, 95, 0.3);
+        }
+        .btn-secondary {
+            background: #eef2f7;
+            color: var(--text);
+        }
+        .btn-secondary:hover {
+            background: #e0e8f0;
+        }
+        .btn-accent {
+            background: var(--accent);
+            color: #1c2b3a;
+        }
+        .btn-accent:hover {
+            background: #d99a2b;
+        }
+        .btn-sm {
+            padding: 8px 14px;
+            font-size: 0.85rem;
+        }
+        .btn-group {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+        .result-section {
+            background: #f8fafc;
+            border-left: 4px solid var(--primary);
+            padding: 16px 18px;
+            border-radius: var(--radius-sm);
+            margin-bottom: 12px;
+        }
+        .result-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 0;
+            border-bottom: 1px dashed #e2e8f0;
+        }
+        .result-line:last-child {
+            border-bottom: none;
+        }
+        .result-line .label {
+            font-weight: 500;
+            color: #3b4a5a;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .result-line .value {
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
+        }
+        .result-line.total {
+            background: #e8eff8;
+            border-radius: 4px;
+            padding: 8px 10px;
+            font-weight: 700;
+            font-size: 1.05rem;
+        }
+        .result-line.total .value {
+            color: var(--primary);
+            font-size: 1.2rem;
+        }
+        .legal-badge {
+            font-size: 0.7rem;
+            background: #e3eaf3;
+            color: var(--primary-light);
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-weight: 500;
+        }
+        .alert {
+            padding: 12px 16px;
+            border-radius: var(--radius-sm);
+            margin-bottom: 15px;
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        .alert-warning {
+            background: #fff8e1;
+            border-left: 4px solid #f9a825;
+            color: #795700;
+        }
+        .alert-info {
+            background: #e3f2fd;
+            border-left: 4px solid #1e88e5;
+            color: #0d47a1;
+        }
+        .history-item {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 12px 16px;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .history-item:hover {
+            border-color: var(--primary-light);
+            background: #f8fafc;
+        }
+        .history-item .date {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        .history-item .summary {
+            font-size: 0.9rem;
+            color: var(--muted);
+        }
+        .param-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 15px;
+        }
+        .param-card {
+            background: #f8fafc;
+            border-radius: var(--radius-sm);
+            padding: 14px;
+            border: 1px solid #e8edf4;
+        }
+        .param-card label {
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        .param-card input {
+            margin-top: 4px;
+        }
+        .btn-icon {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: var(--muted);
+            transition: color 0.2s;
+        }
+        .btn-icon:hover {
+            color: var(--danger);
+        }
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .modal {
+            background: #fff;
+            border-radius: var(--radius);
+            padding: 25px;
+            max-width: 500px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        .modal h3 {
+            margin-bottom: 15px;
+            color: var(--primary);
+        }
+        .toast {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: var(--primary);
+            color: #fff;
+            padding: 12px 20px;
+            border-radius: var(--radius-sm);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+            font-weight: 500;
+            z-index: 2000;
+            animation: slideIn 0.3s ease;
+        }
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .text-muted {
+            color: var(--muted);
+            font-size: 0.85rem;
+        }
+        .spacer {
+            height: 10px;
+        }
+        .inline-flex {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .w-100 {
+            width: 100%;
+        }
+        .mt-2 {
+            margin-top: 10px;
+        }
+        .mb-2 {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <div>
+                <h1>🛡️ Calculator Salarizare</h1>
+                <div class="subtitle">Polițiști de penitenciare · Motor parametric · Reguli 2026</div>
+            </div>
+            <span class="badge">Legal engine</span>
+        </header>
+
+        <div class="tabs">
+            <button class="tab-btn active" data-tab="teoretic">📋 Calcul teoretic</button>
+            <button class="tab-btn" data-tab="efectiv">🧾 Calcul efectiv</button>
+            <button class="tab-btn" data-tab="parametri">⚙️ Parametri</button>
+            <button class="tab-btn" data-tab="istoric">📚 Istoric</button>
+            <button class="tab-btn" data-tab="despre">ℹ️ Despre</button>
+        </div>
+
+        <!-- PANEL TEORETIC -->
+        <div id="panel-teoretic" class="panel active">
+            <div class="grid-2">
+                <div>
+                    <div class="card">
+                        <h2>📌 Date de intrare</h2>
+                        <form id="form-teoretic">
+                            <div class="form-group">
+                                <label>An / Lună</label>
+                                <div style="display:flex; gap:10px;">
+                                    <input type="number" id="teoretic-an" value="2026" min="2017" max="2030" style="flex:1;">
+                                    <input type="number" id="teoretic-luna" value="8" min="1" max="12" style="flex:1;">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Instituție</label>
+                                <input type="text" id="teoretic-institutie" value="ANP" placeholder="ex: ANP, Penitenciar...">
+                            </div>
+                            <div class="form-group">
+                                <label>Categorie personal</label>
+                                <select id="teoretic-categorie">
+                                    <option value="politist_penitenciare">Polițist de penitenciare</option>
+                                    <option value="personal_civil">Personal civil contractual</option>
+                                    <option value="militar">Militar</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Corp profesional</label>
+                                <select id="teoretic-corp">
+                                    <option value="ofiter">Ofițeri</option>
+                                    <option value="agent" selected>Agenți</option>
+                                    <option value="subofiteri">Subofițeri</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Grad profesional</label>
+                                <select id="teoretic-grad-profesional" onchange="autoCompleteGradTeoretic()">
+                                    <option value="agent">Agent</option>
+                                    <option value="agent_principal">Agent principal</option>
+                                    <option value="agent_sef_adjunct" selected>Agent șef adjunct</option>
+                                    <option value="agent_sef">Agent șef</option>
+                                    <option value="agent_sef_principal">Agent șef principal</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Salariu grad profesional (lei)</label>
+                                <input type="number" id="teoretic-salariu-grad" value="270" step="1">
+                            </div>
+                            <div class="form-group">
+                                <label>Funcție</label>
+                                <input type="text" id="teoretic-functie" value="Șef tură" placeholder="ex: Șef tură, agent supraveghere...">
+                            </div>
+                            <div class="form-group">
+                                <label>Nivel studii</label>
+                                <select id="teoretic-studii">
+                                    <option value="medii">Studii medii</option>
+                                    <option value="superioare">Studii superioare</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Gradație (0-7)</label>
+                                <select id="teoretic-gradatie" onchange="updateGradatiePreview()">
+                                    <option value="0">0 - fără gradație</option>
+                                    <option value="1" selected>1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Salariu de funcție bază (SF0, lei)</label>
+                                <input type="number" id="teoretic-sf0" value="4000" step="10">
+                                <div class="hint">Introduceți salariul de funcție de referință înainte de aplicarea gradației.</div>
+                            </div>
+                            <div class="form-group">
+                                <label>Specialist de clasă</label>
+                                <select id="teoretic-specialist" onchange="toggleSpecialistTeoretic()">
+                                    <option value="0">Fără specialist</option>
+                                    <option value="3">Clasa III (2,5%)</option>
+                                    <option value="2">Clasa II (5%)</option>
+                                    <option value="1" selected>Clasa I (7,5%)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Structură centrală (majorare 12,5% art. 23)</label>
+                                <div class="checkbox-row">
+                                    <input type="checkbox" id="teoretic-structura-centrala">
+                                    <label for="teoretic-structura-centrala">Da, activată</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Condiții de muncă</label>
+                                <select id="teoretic-conditii">
+                                    <option value="normale" selected>Normale</option>
+                                    <option value="deosebite">Deosebite</option>
+                                    <option value="speciale">Speciale</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Compensație risc / pericol deosebit</label>
+                                <div class="checkbox-row">
+                                    <input type="checkbox" id="teoretic-risc-check" onchange="toggleRiscTeoretic()">
+                                    <label for="teoretic-risc-check">Acordată</label>
+                                </div>
+                                <div id="teoretic-risc-input" style="display:none;">
+                                    <label>Procent (%)</label>
+                                    <input type="number" id="teoretic-risc-procent" value="30" min="0" max="30" step="0.5">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Funcție de comandă</label>
+                                <select id="teoretic-comanda" onchange="toggleComandaTeoretic()">
+                                    <option value="nu" selected>Nu</option>
+                                    <option value="sef_formatiune_I">Șef formațiune nivel I (10%)</option>
+                                    <option value="sef_formatiune_II">Șef formațiune nivel II (5%)</option>
+                                </select>
+                                <div id="teoretic-comanda-extra" style="display:none;">
+                                    <div class="form-group">
+                                        <label>Număr subordonați</label>
+                                        <input type="number" id="teoretic-subordonati" value="3" min="0">
+                                    </div>
+                                    <div class="checkbox-row">
+                                        <input type="checkbox" id="teoretic-comanda-stat" checked>
+                                        <label for="teoretic-comanda-stat">Funcție prevăzută ca atare în statul de organizare</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Ore suplimentare (lună)</label>
+                                <input type="number" id="teoretic-ore-suplimentare" value="0" min="0" step="1">
+                            </div>
+                            <div class="form-group">
+                                <label>Ore sărbători / repaus (lună)</label>
+                                <input type="number" id="teoretic-ore-sarbatori" value="0" min="0" step="1">
+                            </div>
+                            <div class="form-group">
+                                <label>Alte majorări (%)</label>
+                                <input type="number" id="teoretic-alte-majorari" value="0" min="0" step="0.1">
+                            </div>
+                            <div class="form-group">
+                                <label>Deducere personală (lei)</label>
+                                <input type="number" id="teoretic-deducere" value="0" min="0" step="10">
+                            </div>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-primary" onclick="calculeazaTeoretic()">📊 Calculează</button>
+                                <button type="button" class="btn btn-secondary" onclick="reseteazaFormTeoretic()">🔄 Reset</button>
+                                <button type="button" class="btn btn-accent" onclick="salveazaCalcul('teoretic')">💾 Salvează</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div>
+                    <div class="card">
+                        <h2>📊 Rezultat detaliat</h2>
+                        <div id="rezultat-teoretic">
+                            <div class="alert alert-info">Introduceți datele și apăsați „Calculează”.</div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <h2>🧾 Pași de calcul</h2>
+                        <div id="pasi-teoretic">
+                            <div class="text-muted">Pașii vor apărea aici.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PANEL EFECTIV -->
+        <div id="panel-efectiv" class="panel">
+            <div class="grid-2">
+                <div>
+                    <div class="card">
+                        <h2>🧾 Date efective din fluturaș</h2>
+                        <form id="form-efectiv">
+                            <div class="form-group">
+                                <label>Salariu funcție aflat în plată (lei)</label>
+                                <input type="number" id="efectiv-sf" value="4738" step="10">
+                            </div>
+                            <div class="form-group">
+                                <label>Salariu grad profesional (lei)</label>
+                                <input type="number" id="efectiv-grad" value="270" step="1">
+                            </div>
+                            <div class="form-group">
+                                <label>Gradație (%)</label>
+                                <input type="number" id="efectiv-gradatie" value="3" min="0" max="7" step="1">
+                                <div class="hint">Gradație efectivă aplicată succesiv.</div>
+                            </div>
+                            <div class="form-group">
+                                <label>Specialist (%)</label>
+                                <input type="number" id="efectiv-specialist" value="7.5" min="0" max="7.5" step="0.5">
+                            </div>
+                            <div class="form-group">
+                                <label>Procent sporuri / compensații (%)</label>
+                                <input type="number" id="efectiv-sporuri" value="30" min="0" max="100" step="0.5">
+                            </div>
+                            <div class="form-group">
+                                <label>Salariu de comandă (lei)</label>
+                                <input type="number" id="efectiv-comanda" value="0" min="0" step="1">
+                            </div>
+                            <div class="form-group">
+                                <label>Ore suplimentare (lei)</label>
+                                <input type="number" id="efectiv-ore" value="0" min="0" step="1">
+                            </div>
+                            <div class="form-group">
+                                <label>Alte drepturi (lei)</label>
+                                <input type="number" id="efectiv-altele" value="0" min="0" step="1">
+                            </div>
+                            <div class="form-group">
+                                <label>Deducere personală (lei)</label>
+                                <input type="number" id="efectiv-deducere" value="0" min="0" step="10">
+                            </div>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-primary" onclick="calculeazaEfectiv()">📊 Calculează</button>
+                                <button type="button" class="btn btn-secondary" onclick="reseteazaFormEfectiv()">🔄 Reset</button>
+                                <button type="button" class="btn btn-accent" onclick="salveazaCalcul('efectiv')">💾 Salvează</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div>
+                    <div class="card">
+                        <h2>📊 Rezultat efectiv</h2>
+                        <div id="rezultat-efectiv">
+                            <div class="alert alert-info">Introduceți datele și apăsați „Calculează”.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PANEL PARAMETRI -->
+        <div id="panel-parametri" class="panel">
+            <div class="card">
+                <h2>⚙️ Parametri de configurare</h2>
+                <p class="text-muted mb-2">Modificați procentele și valorile conform legislației aplicabile. Acestea sunt folosite de motorul de calcul.</p>
+                <div class="param-grid" id="param-grid">
+                    <!-- Populate din JS -->
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-primary" onclick="salveazaParametri()">💾 Salvează parametri</button>
+                    <button class="btn btn-secondary" onclick="resetParametri()">🔄 Reset la implicit</button>
+                    <button class="btn btn-accent" onclick="exportConfig()">📤 Exportă JSON</button>
+                    <button class="btn btn-secondary" onclick="importConfigPrompt()">📥 Importă JSON</button>
+                </div>
+            </div>
+            <div class="card">
+                <h2>📋 Structura datelor</h2>
+                <pre id="param-json-preview" style="background:#f8fafc;padding:15px;border-radius:8px;overflow:auto;font-size:0.8rem;"></pre>
+            </div>
+        </div>
+
+        <!-- PANEL ISTORIC -->
+        <div id="panel-istoric" class="panel">
+            <div class="card">
+                <h2>📚 Istoric calcule</h2>
+                <div id="istoric-list">
+                    <div class="text-muted">Niciun calcul salvat.</div>
+                </div>
+                <div class="btn-group">
+                    <button class="btn btn-secondary" onclick="stergeIstoric()">🗑️ Șterge istoric</button>
+                    <button class="btn btn-accent" onclick="exportIstoric()">📤 Exportă istoric</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- PANEL DESPRE -->
+        <div id="panel-despre" class="panel">
+            <div class="card">
+                <h2>ℹ️ Despre aplicație</h2>
+                <p>Această aplicație implementează un motor parametric pentru calculul salarizării polițiștilor de penitenciare, conform Legii-cadru nr. 153/2017, Anexa VI, cu actualizările aplicabile.</p>
+                <h3 class="mt-2">Principii de calcul</h3>
+                <ul style="padding-left:20px;margin-top:8px;">
+                    <li><strong>Gradația</strong> se aplică succesiv cu 3%, până la gradul 7.</li>
+                    <li><strong>Majorările art. 19 (7,5%) și art. 23 (12,5%)</strong> se aplică la salariul de funcție după gradație, nu compus.</li>
+                    <li><strong>Specialistul de clasă</strong> se aplică la salariul de funcție după gradație.</li>
+                    <li><strong>Compensația de risc</strong> se aplică la salariul de funcție majorat, până la 30%.</li>
+                    <li><strong>Salariul de comandă</strong> se aplică la salariul de funcție majorat, în condiții specifice.</li>
+                </ul>
+                <h3 class="mt-2">Surse normative</h3>
+                <p class="text-muted">Legea-cadru nr. 153/2017, Anexa VI; Normele metodologice aprobate; Legea nr. 141/2025 privind bugetul asigurărilor sociale de stat pe 2026; alte acte normative aplicabile.</p>
+                <div class="alert alert-warning mt-2">
+                    ⚠️ Aplicația are caracter informativ și nu înlocuiește verificarea cu compartimentul de resurse umane sau actele normative oficiale.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal pentru import -->
+    <div id="modal-import" class="modal-overlay" style="display:none;">
+        <div class="modal">
+            <h3>📥 Importă configurație JSON</h3>
+            <textarea id="import-textarea" style="width:100%;height:200px;padding:10px;border:1px solid var(--border);border-radius:8px;font-family:monospace;"></textarea>
+            <div class="btn-group">
+                <button class="btn btn-primary" onclick="importConfigFromText()">📥 Importă</button>
+                <button class="btn btn-secondary" onclick="closeImportModal()">Anulează</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ======================= CONFIG IMPLICITĂ =======================
+        const DEFAULT_CONFIG = {
+            year: 2026,
+            rules: {
+                gradatie: {
+                    procent: 3,
+                    numarMaxim: 7,
+                    succesiva: true
+                },
+                majorari: {
+                    art19: 7.5,
+                    art23: 12.5,
+                    specialist: {
+                        0: 0,
+                        3: 2.5,
+                        2: 5,
+                        1: 7.5
+                    }
+                },
+                comanda: {
+                    sef_formatiune_I: 10,
+                    sef_formatiune_II: 5
+                },
+                risc: {
+                    maxim: 30,
+                    implicit: 30
+                },
+                taxe: {
+                    cas: 25,
+                    cass: 10,
+                    impozit: 10,
+                    deducere_personala_implicit: 0
+                }
+            },
+            gradeProfesionale: {
+                agent: 250,
+                agent_principal: 260,
+                agent_sef_adjunct: 270,
+                agent_sef: 280,
+                agent_sef_principal: 290
+            }
+        };
+
+        let config = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
+        let istoricCalcul = JSON.parse(localStorage.getItem('istoric_salarizare') || '[]');
+
+        // ======================= UTILITARE =======================
+        function formatLei(val) {
+            return Number(val).toFixed(2).replace('.', ',') + ' lei';
+        }
+
+        function formatProcent(val) {
+            return Number(val).toFixed(1).replace('.', ',') + '%';
+        }
+
+        function toast(msg) {
+            const t = document.createElement('div');
+            t.className = 'toast';
+            t.textContent = msg;
+            document.body.appendChild(t);
+            setTimeout(() => t.remove(), 2500);
+        }
+
+        function aplicaGradatia(sf0, gradatie) {
+            let sf = sf0;
+            const procent = config.rules.gradatie.procent;
+            for (let i = 0; i < gradatie; i++) {
+                sf *= (1 + procent / 100);
+            }
+            return sf;
+        }
+
+        function calculeazaTaxe(venitBrut, deducere) {
+            const cas = venitBrut * (config.rules.taxe.cas / 100);
+            const cass = venitBrut * (config.rules.taxe.cass / 100);
+            let bazaImpozit = venitBrut - cas - cass;
+            if (deducere > 0) {
+                bazaImpozit = Math.max(0, bazaImpozit - deducere);
+            }
+            const impozit = bazaImpozit * (config.rules.taxe.impozit / 100);
+            const net = venitBrut - cas - cass - impozit;
+            return {
+                brut: venitBrut,
+                cas: cas,
+                cass: cass,
+                bazaImpozit: bazaImpozit,
+                impozit: impozit,
+                net: net
+            };
+        }
+
+        function escapeHtml(str) {
+            const div = document.createElement('div');
+            div.textContent = str;
+            return div.innerHTML;
+        }
+
+        // ======================= NAVIGARE TABS =======================
+        document.querySelectorAll('.tab-btn').forEach(btn => {
+            btn.addEventListener('click', function(e) {
+                const tab = this.dataset.tab;
+                document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+                document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+                this.classList.add('active');
+                document.getElementById('panel-' + tab).classList.add('active');
+            });
+        });
+
+        // ======================= FORMULARE =======================
+        function toggleRiscTeoretic() {
+            const check = document.getElementById('teoretic-risc-check');
+            const input = document.getElementById('teoretic-risc-input');
+            input.style.display = check.checked ? 'block' : 'none';
+        }
+
+        function toggleComandaTeoretic() {
+            const select = document.getElementById('teoretic-comanda');
+            const extra = document.getElementById('teoretic-comanda-extra');
+            extra.style.display = select.value !== 'nu' ? 'block' : 'none';
+        }
+
+        function toggleSpecialistTeoretic() {
+            // placeholder
+        }
+
+        function autoCompleteGradTeoretic() {
+            const grad = document.getElementById('teoretic-grad-profesional').value;
+            const val = config.gradeProfesionale[grad] || 0;
+            document.getElementById('teoretic-salariu-grad').value = val;
+        }
+
+        function updateGradatiePreview() {
+            const grad = parseInt(document.getElementById('teoretic-gradatie').value);
+            const sf0 = parseFloat(document.getElementById('teoretic-sf0').value) || 0;
+            const sfGrad = aplicaGradatia(sf0, grad);
+            const p = document.getElementById('teoretic-gradatie-preview');
+            if (p) p.textContent = `Salariu după gradație: ${formatLei(sfGrad)} (succesiv ${grad} × 3%)`;
+        }
+
+        // Inițializare preview
+        document.addEventListener('DOMContentLoaded', function() {
+            autoCompleteGradTeoretic();
+            toggleComandaTeoretic();
+            toggleRiscTeoretic();
+            updateParamGrid();
+            renderIstoric();
+            updateParamPreview();
+        });
+
+        function reseteazaFormTeoretic() {
+            document.getElementById('form-teoretic').reset();
+            document.getElementById('teoretic-an').value = 2026;
+            document.getElementById('teoretic-luna').value = 8;
+            document.getElementById('teoretic-institutie').value = 'ANP';
+            document.getElementById('teoretic-categorie').value = 'politist_penitenciare';
+            document.getElementById('teoretic-corp').value = 'agent';
+            document.getElementById('teoretic-grad-profesional').value = 'agent_sef_adjunct';
+            document.getElementById('teoretic-salariu-grad').value = 270;
+            document.getElementById('teoretic-functie').value = 'Șef tură';
+            document.getElementById('teoretic-studii').value = 'medii';
+            document.getElementById('teoretic-gradatie').value = '1';
+            document.getElementById('teoretic-sf0').value = 4000;
+            document.getElementById('teoretic-specialist').value = '1';
+            document.getElementById('teoretic-structura-centrala').checked = false;
+            document.getElementById('teoretic-conditii').value = 'normale';
+            document.getElementById('teoretic-risc-check').checked = false;
+            document.getElementById('teoretic-risc-procent').value = 30;
+            document.getElementById('teoretic-comanda').value = 'nu';
+            document.getElementById('teoretic-subordonati').value = 3;
+            document.getElementById('teoretic-comanda-stat').checked = true;
+            document.getElementById('teoretic-ore-suplimentare').value = 0;
+            document.getElementById('teoretic-ore-sarbatori').value = 0;
+            document.getElementById('teoretic-alte-majorari').value = 0;
+            document.getElementById('teoretic-deducere').value = 0;
+            toggleRiscTeoretic();
+            toggleComandaTeoretic();
+            updateGradatiePreview();
+            document.getElementById('rezultat-teoretic').innerHTML = '<div class="alert alert-info">Introduceți datele și apăsați „Calculează”.</div>';
+            document.getElementById('pasi-teoretic').innerHTML = '<div class="text-muted">Pașii vor apărea aici.</div>';
+        }
+
+        function reseteazaFormEfectiv() {
+            document.getElementById('form-efectiv').reset();
+            document.getElementById('efectiv-sf').value = 4738;
+            document.getElementById('efectiv-grad').value = 270;
+            document.getElementById('efectiv-gradatie').value = 3;
+            document.getElementById('efectiv-specialist').value = 7.5;
+            document.getElementById('efectiv-sporuri').value = 30;
+            document.getElementById('efectiv-comanda').value = 0;
+            document.getElementById('efectiv-ore').value = 0;
+            document.getElementById('efectiv-altele').value = 0;
+            document.getElementById('efectiv-deducere').value = 0;
+            document.getElementById('rezultat-efectiv').innerHTML = '<div class="alert alert-info">Introduceți datele și apăsați „Calculează”.</div>';
+        }
+
+        // ======================= CALCUL TEORETIC =======================
+        function calculeazaTeoretic() {
+            const sf0 = parseFloat(document.getElementById('teoretic-sf0').value) || 0;
+            const gradatie = parseInt(document.getElementById('teoretic-gradatie').value) || 0;
+            const specialist = document.getElementById('teoretic-specialist').value;
+            const structuraCentrala = document.getElementById('teoretic-structura-centrala').checked;
+            const riscCheck = document.getElementById('teoretic-risc-check').checked;
+            const riscProcent = riscCheck ? (parseFloat(document.getElementById('teoretic-risc-procent').value) || 0) : 0;
+            const comandaTip = document.getElementById('teoretic-comanda').value;
+            const subordonati = parseInt(document.getElementById('teoretic-subordonati').value) || 0;
+            const comandaStat = document.getElementById('teoretic-comanda-stat').checked;
+            const oreSuplimentare = parseFloat(document.getElementById('teoretic-ore-suplimentare').value) || 0;
+            const oreSarbatori = parseFloat(document.getElementById('teoretic-ore-sarbatori').value) || 0;
+            const alteMajorariProcent = parseFloat(document.getElementById('teoretic-alte-majorari').value) || 0;
+            const salariuGrad = parseFloat(document.getElementById('teoretic-salariu-grad').value) || 0;
+            const deducere = parseFloat(document.getElementById('teoretic-deducere').value) || 0;
+
+            // Pas 1: Salariu funcție de bază
+            const sf0_ = sf0;
+            // Pas 2: Gradație
+            const sfGrad = aplicaGradatia(sf0_, gradatie);
+            // Pas 3: Majorări pe baza sfGrad
+            const art19 = sfGrad * (config.rules.majorari.art19 / 100);
+            const art23 = structuraCentrala ? sfGrad * (config.rules.majorari.art23 / 100) : 0;
+            const specialistProcent = config.rules.majorari.specialist[specialist] || 0;
+            const specialistVal = sfGrad * (specialistProcent / 100);
+            const alteMajorariVal = sfGrad * (alteMajorariProcent / 100);
+            // Pas 4: Salariu funcție majorat
+            const sfMajorat = sfGrad + art19 + art23 + specialistVal + alteMajorariVal;
+            // Pas 5: Compensații risc
+            const riscVal = sfMajorat * (riscProcent / 100);
+            // Pas 6: Salariu comandă
+            let comandaProcent = 0;
+            if (comandaTip === 'sef_formatiune_I' && comandaStat && subordonati >= 3) {
+                comandaProcent = config.rules.comanda.sef_formatiune_I;
+            } else if (comandaTip === 'sef_formatiune_II' && comandaStat && subordonati >= 3) {
+                comandaProcent = config.rules.comanda.sef_formatiune_II;
+            }
+            const comandaVal = sfMajorat * (comandaProcent / 100);
+            // Pas 7: Salariu grad
+            const gradVal = salariuGrad;
+            // Pas 8: Drepturi variabile
+            const oreVal = oreSuplimentare + oreSarbatori; // simplificare
+            const drepturiVariabile = oreVal;
+            // Pas 9: Brut
+            const venitBrut = sfMajorat + riscVal + comandaVal + gradVal + drepturiVariabile;
+            const taxe = calculeazaTaxe(venitBrut, deducere);
+
+            // Afișare rezultate
+            const rez = document.getElementById('rezultat-teoretic');
+            rez.innerHTML = `
+                <div class="result-section">
+                    <div class="result-line"><span class="label">Salariu funcție bază (SF0)</span><span class="value">${formatLei(sf0_)}</span></div>
+                    <div class="result-line"><span class="label">Gradația ${gradatie} (${config.rules.gradatie.procent}% succesiv)</span><span class="value">${formatLei(sfGrad - sf0_)}</span></div>
+                    <div class="result-line"><span class="label">Salariu funcție după gradație</span><span class="value">${formatLei(sfGrad)}</span></div>
+                    <div class="result-line"><span class="label">Majorare art. 19 (${config.rules.majorari.art19}%)</span><span class="value">${formatLei(art19)}</span></div>
+                    ${structuraCentrala ? `<div class="result-line"><span class="label">Majorare art. 23 (${config.rules.majorari.art23}%)</span><span class="value">${formatLei(art23)}</span></div>` : ''}
+                    ${specialistProcent > 0 ? `<div class="result-line"><span class="label">Specialist clasa ${specialist} (${specialistProcent}%)</span><span class="value">${formatLei(specialistVal)}</span></div>` : ''}
+                    ${alteMajorariProcent > 0 ? `<div class="result-line"><span class="label">Alte majorări (${alteMajorariProcent}%)</span><span class="value">${formatLei(alteMajorariVal)}</span></div>` : ''}
+                    <div class="result-line total"><span class="label">SALARIU FUNCȚIE MAJORAT</span><span class="value">${formatLei(sfMajorat)}</span></div>
+                    ${riscProcent > 0 ? `<div class="result-line"><span class="label">Compensație risc/pericol (${riscProcent}%)</span><span class="value">${formatLei(riscVal)}</span></div>` : ''}
+                    ${comandaProcent > 0 ? `<div class="result-line"><span class="label">Salariu de comandă (${comandaProcent}%)</span><span class="value">${formatLei(comandaVal)}</span></div>` : ''}
+                    <div class="result-line"><span class="label">Salariu grad profesional</span><span class="value">${formatLei(gradVal)}</span></div>
+                    ${oreVal > 0 ? `<div class="result-line"><span class="label">Drepturi ore suplimentare/sărbători</span><span class="value">${formatLei(oreVal)}</span></div>` : ''}
+                </div>
+                <div class="result-section">
+                    <div class="result-line"><span class="label">VENIT BRUT</span><span class="value">${formatLei(venitBrut)}</span></div>
+                    <div class="result-line"><span class="label">CAS (${config.rules.taxe.cas}%)</span><span class="value">${formatLei(taxe.cas)}</span></div>
+                    <div class="result-line"><span class="label">CASS (${config.rules.taxe.cass}%)</span><span class="value">${formatLei(taxe.cass)}</span></div>
+                    <div class="result-line"><span class="label">Impozit (${config.rules.taxe.impozit}%)</span><span class="value">${formatLei(taxe.impozit)}</span></div>
+                    <div class="result-line total"><span class="label">SALARIU NET</span><span class="value">${formatLei(taxe.net)}</span></div>
+                </div>
+            `;
+
+            // Pași
+            const pasi = document.getElementById('pasi-teoretic');
+            pasi.innerHTML = `
+                <div class="result-line"><span class="label">1. SF0 bază</span><span class="value">${formatLei(sf0_)}</span></div>
+                <div class="result-line"><span class="label">2. SF după gradație (${gradatie}×${config.rules.gradatie.procent}%)</span><span class="value">${formatLei(sfGrad)}</span></div>
+                <div class="result-line"><span class="label">3. Majorări pe bază SF grad</span><span class="value">${formatLei(art19 + art23 + specialistVal + alteMajorariVal)}</span></div>
+                <div class="result-line"><span class="label">4. SF majorat</span><span class="value">${formatLei(sfMajorat)}</span></div>
+                <div class="result-line"><span class="label">5. Compensații + comandă</span><span class="value">${formatLei(riscVal + comandaVal)}</span></div>
+                <div class="result-line"><span class="label">6. Grad + drepturi variabile</span><span class="value">${formatLei(gradVal + drepturiVariabile)}</span></div>
+                <div class="result-line total"><span class="label">7. Brut</span><span class="value">${formatLei(venitBrut)}</span></div>
+                <div class="result-line total"><span class="label">8. Net</span><span class="value">${formatLei(taxe.net)}</span></div>
+            `;
+
+            updateGradatiePreview();
+            toast('Calcul efectuat cu succes');
+            return {
+                tip: 'teoretic',
+                sf0, gradatie, sfGrad, art19, art23, specialistVal, alteMajorariVal,
+                sfMajorat, riscVal, comandaVal, gradVal, oreVal, venitBrut, taxe,
+                config: JSON.parse(JSON.stringify(config))
+            };
+        }
+
+        // ======================= CALCUL EFECTIV =======================
+        function calculeazaEfectiv() {
+            const sf = parseFloat(document.getElementById('efectiv-sf').value) || 0;
+            const grad = parseFloat(document.getElementById('efectiv-grad').value) || 0;
+            const gradatie = parseInt(document.getElementById('efectiv-gradatie').value) || 0;
+            const specialistProcent = parseFloat(document.getElementById('efectiv-specialist').value) || 0;
+            const sporuriProcent = parseFloat(document.getElementById('efectiv-sporuri').value) || 0;
+            const comanda = parseFloat(document.getElementById('efectiv-comanda').value) || 0;
+            const ore = parseFloat(document.getElementById('efectiv-ore').value) || 0;
+            const altele = parseFloat(document.getElementById('efectiv-altele').value) || 0;
+            const deducere = parseFloat(document.getElementById('efectiv-deducere').value) || 0;
+
+            // În modul efectiv, sf este deja majorat, deci calculăm sporurile pe baza lui
+            const riscVal = sf * (sporuriProcent / 100);
+            const venitBrut = sf + grad + riscVal + comanda + ore + altele;
+            const taxe = calculeazaTaxe(venitBrut, deducere);
+
+            const rez = document.getElementById('rezultat-efectiv');
+            rez.innerHTML = `
+                <div class="result-section">
+                    <div class="result-line"><span class="label">Salariu funcție aflat în plată</span><span class="value">${formatLei(sf)}</span></div>
+                    <div class="result-line"><span class="label">Salariu grad profesional</span><span class="value">${formatLei(grad)}</span></div>
+                    <div class="result-line"><span class="label">Sporuri / compensații (${sporuriProcent}%)</span><span class="value">${formatLei(riscVal)}</span></div>
+                    <div class="result-line"><span class="label">Salariu de comandă</span><span class="value">${formatLei(comanda)}</span></div>
+                    <div class="result-line"><span class="label">Ore suplimentare</span><span class="value">${formatLei(ore)}</span></div>
+                    <div class="result-line"><span class="label">Alte drepturi</span><span class="value">${formatLei(altele)}</span></div>
+                </div>
+                <div class="result-section">
+                    <div class="result-line total"><span class="label">VENIT BRUT</span><span class="value">${formatLei(venitBrut)}</span></div>
+                    <div class="result-line"><span class="label">CAS (${config.rules.taxe.cas}%)</span><span class="value">${formatLei(taxe.cas)}</span></div>
+                    <div class="result-line"><span class="label">CASS (${config.rules.taxe.cass}%)</span><span class="value">${formatLei(taxe.cass)}</span></div>
+                    <div class="result-line"><span class="label">Impozit (${config.rules.taxe.impozit}%)</span><span class="value">${formatLei(taxe.impozit)}</span></div>
+                    <div class="result-line total"><span class="label">SALARIU NET</span><span class="value">${formatLei(taxe.net)}</span></div>
+                </div>
+            `;
+            toast('Calcul efectuat');
+            return {
+                tip: 'efectiv',
+                sf, grad, gradatie, specialistProcent, sporuriProcent, comanda, ore, altele,
+                venitBrut, taxe
+            };
+        }
+
+        // ======================= SALVARE / ISTORIC =======================
+        function salveazaCalcul(tip) {
+            let data;
+            if (tip === 'teoretic') {
+                data = calculeazaTeoretic();
+            } else {
+                data = calculeazaEfectiv();
+            }
+            if (!data) return;
+            data.timestamp = new Date().toISOString();
+            data.id = Date.now();
+            istoricCalcul.push(data);
+            localStorage.setItem('istoric_salarizare', JSON.stringify(istoricCalcul));
+            renderIstoric();
+            toast('Calcul salvat în istoric');
+        }
+
+        function renderIstoric() {
+            const list = document.getElementById('istoric-list');
+            if (istoricCalcul.length === 0) {
+                list.innerHTML = '<div class="text-muted">Niciun calcul salvat.</div>';
+                return;
+            }
+            list.innerHTML = istoricCalcul.map((item, idx) => {
+                const d = new Date(item.timestamp);
+                const dateStr = d.toLocaleDateString('ro-RO') + ' ' + d.toLocaleTimeString('ro-RO');
+                let summary = '';
+                if (item.tip === 'teoretic') {
+                    summary = `SF0: ${item.sf0} lei, Gradație: ${item.gradatie}, Brut: ${item.venitBrut.toFixed(0)} lei, Net: ${item.taxe.net.toFixed(0)} lei`;
+                } else {
+                    summary = `SF: ${item.sf} lei, Brut: ${item.venitBrut.toFixed(0)} lei, Net: ${item.taxe.net.toFixed(0)} lei`;
+                }
+                return `
+                    <div class="history-item" onclick="afiseazaIstoric(${idx})">
+                        <div class="date">📅 ${dateStr}</div>
+                        <div class="summary">${summary}</div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function afiseazaIstoric(idx) {
+            const item = istoricCalcul[idx];
+            if (!item) return;
+            alert(JSON.stringify(item, null, 2));
+        }
+
+        function stergeIstoric() {
+            if (confirm('Sigur doriți să ștergeți tot istoricul?')) {
+                istoricCalcul = [];
+                localStorage.removeItem('istoric_salarizare');
+                renderIstoric();
+                toast('Istoric șters');
+            }
+        }
+
+        function exportIstoric() {
+            if (istoricCalcul.length === 0) {
+                toast('Nu există istoric');
+                return;
+            }
+            const blob = new Blob([JSON.stringify(istoricCalcul, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'istoric_salarizare.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        // ======================= PARAMETRI =======================
+        function updateParamGrid() {
+            const grid = document.getElementById('param-grid');
+            grid.innerHTML = `
+                <div class="param-card">
+                    <label>Gradație procent (%)</label>
+                    <input type="number" id="param-gradatie-procent" value="${config.rules.gradatie.procent}" min="0" step="0.1">
+                </div>
+                <div class="param-card">
+                    <label>Gradație număr maxim</label>
+                    <input type="number" id="param-gradatie-max" value="${config.rules.gradatie.numarMaxim}" min="1" step="1">
+                </div>
+                <div class="param-card">
+                    <label>Art. 19 (%)</label>
+                    <input type="number" id="param-art19" value="${config.rules.majorari.art19}" min="0" step="0.1">
+                </div>
+                <div class="param-card">
+                    <label>Art. 23 (%)</label>
+                    <input type="number" id="param-art23" value="${config.rules.majorari.art23}" min="0" step="0.1">
+                </div>
+                <div class="param-card">
+                    <label>Specialist clasa III (%)</label>
+                    <input type="number" id="param-specialist-3" value="${config.rules.majorari.specialist[3]}" min="0" step="0.1">
+                </div>
+                <div class="param-card">
+                    <label>Specialist clasa II (%)</label>
+                    <input type="number" id="param-specialist-2" value="${config.rules.majorari.specialist[2]}" min="0" step="0.1">
+                </div>
+                <div class="param-card">
+                    <label>Specialist clasa I (%)</label>
+                    <input type="number" id="param-specialist-1" value="${config.rules.majorari.specialist[1]}" min="0" step="0.1">
+                </div>
+                <div class="param-card">
+                    <label>Comandă șef formațiune I (%)</label>
+                    <input type="number" id="param-comanda-I" value="${config.rules.comanda.sef_formatiune_I}" min="0" step="0.1">
+                </div>
+                <div class="param-card">
+                    <label>Comandă șef formațiune II (%)</label>
+                    <input type="number" id="param-comanda-II" value="${config.rules.comanda.sef_formatiune_II}" min="0" step="0.1">
+                </div>
+                <div class="param-card">
+                    <label>Risc maxim (%)</label>
+                    <input type="number" id="param-risc-max" value="${config.rules.risc.maxim}" min="0" step="0.1">
+                </div>
+                <div class="param-card">
+                    <label>CAS (%)</label>
+                    <input type="number" id="param-cas" value="${config.rules.taxe.cas}" min="0" step="0.1">
+                </div>
+                <div class="param-card">
+                    <label>CASS (%)</label>
+                    <input type="number" id="param-cass" value="${config.rules.taxe.cass}" min="0" step="0.1">
+                </div>
+                <div class="param-card">
+                    <label>Impozit (%)</label>
+                    <input type="number" id="param-impozit" value="${config.rules.taxe.impozit}" min="0" step="0.1">
+                </div>
+                <div class="param-card">
+                    <label>Deducere personală implicită (lei)</label>
+                    <input type="number" id="param-deducere" value="${config.rules.taxe.deducere_personala_implicit}" min="0" step="10">
+                </div>
+            `;
+        }
+
+        function salveazaParametri() {
+            const get = id => parseFloat(document.getElementById(id).value);
+            config.rules.gradatie.procent = get('param-gradatie-procent');
+            config.rules.gradatie.numarMaxim = get('param-gradatie-max');
+            config.rules.majorari.art19 = get('param-art19');
+            config.rules.majorari.art23 = get('param-art23');
+            config.rules.majorari.specialist[3] = get('param-specialist-3');
+            config.rules.majorari.specialist[2] = get('param-specialist-2');
+            config.rules.majorari.specialist[1] = get('param-specialist-1');
+            config.rules.comanda.sef_formatiune_I = get('param-comanda-I');
+            config.rules.comanda.sef_formatiune_II = get('param-comanda-II');
+            config.rules.risc.maxim = get('param-risc-max');
+            config.rules.taxe.cas = get('param-cas');
+            config.rules.taxe.cass = get('param-cass');
+            config.rules.taxe.impozit = get('param-impozit');
+            config.rules.taxe.deducere_personala_implicit = get('param-deducere');
+            updateParamPreview();
+            toast('Parametri salvați');
+        }
+
+        function resetParametri() {
+            config = JSON.parse(JSON.stringify(DEFAULT_CONFIG));
+            updateParamGrid();
+            updateParamPreview();
+            toast('Parametri resetați la valorile implicite');
+        }
+
+        function updateParamPreview() {
+            document.getElementById('param-json-preview').textContent = JSON.stringify(config, null, 2);
+        }
+
+        // ======================= EXPORT / IMPORT CONFIG =======================
+        function exportConfig() {
+            const blob = new Blob([JSON.stringify(config, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'config_salarizare.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+
+        function importConfigPrompt() {
+            document.getElementById('modal-import').style.display = 'flex';
+            document.getElementById('import-textarea').value = '';
+        }
+
+        function closeImportModal() {
+            document.getElementById('modal-import').style.display = 'none';
+        }
+
+        function importConfigFromText() {
+            try {
+                const text = document.getElementById('import-textarea').value;
+                const newConfig = JSON.parse(text);
+                if (newConfig && newConfig.rules && newConfig.rules.gradatie) {
+                    config = newConfig;
+                    updateParamGrid();
+                    updateParamPreview();
+                    closeImportModal();
+                    toast('Configurație importată cu succes');
+                } else {
+                    alert('JSON invalid');
+                }
+            } catch (e) {
+                alert('Eroare la import: ' + e.message);
+            }
+        }
+
+        // Închidere modal la click pe overlay
+        document.getElementById('modal-import').addEventListener('click', function(e) {
+            if (e.target === this) closeImportModal();
+        });
+
+        // ======================= INIT =======================
+        updateParamGrid();
+        updateParamPreview();
+        renderIstoric();
+        autoCompleteGradTeoretic();
+    </script>
+</body>
+</html>
