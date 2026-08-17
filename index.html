@@ -17,8 +17,6 @@
             --shadow: 0 6px 18px rgba(0,0,0,0.05);
             --radius: 12px;
             --radius-sm: 8px;
-            --success: #2e7d32;
-            --danger: #c62828;
         }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
@@ -42,18 +40,9 @@
             gap: 16px;
             flex-wrap: wrap;
         }
-        header h1 { font-size: 1.7rem; font-weight: 600; letter-spacing: 0.5px; }
+        header h1 { font-size: 1.7rem; font-weight: 600; }
         header .subtitle { font-size: 0.95rem; opacity: 0.85; }
-        .badge {
-            background: var(--accent);
-            color: #1c2b3a;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-weight: 600;
-            font-size: 0.8rem;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
+        .badge { background: var(--accent); color: #1c2b3a; padding: 4px 12px; border-radius: 20px; font-weight: 600; font-size: 0.8rem; text-transform: uppercase; }
         .tabs { display: flex; gap: 8px; margin-bottom: 25px; flex-wrap: wrap; }
         .tab-btn {
             padding: 12px 20px;
@@ -84,22 +73,10 @@
             margin-bottom: 25px;
             border: 1px solid var(--border);
         }
-        .card h2 { font-size: 1.25rem; margin-bottom: 16px; color: var(--primary); display: flex; align-items: center; gap: 8px; border-bottom: 2px solid #edf2f7; padding-bottom: 12px; }
-        .card h3 { font-size: 1rem; color: var(--primary-light); margin: 16px 0 8px; }
+        .card h2 { font-size: 1.25rem; margin-bottom: 16px; color: var(--primary); border-bottom: 2px solid #edf2f7; padding-bottom: 12px; }
         .form-group { margin-bottom: 14px; }
         label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 5px; color: #34495e; }
-        .hint { font-size: 0.78rem; color: var(--muted); font-weight: 400; margin-left: 4px; }
-        input[type="number"], select {
-            width: 100%;
-            padding: 10px 12px;
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            font-size: 0.95rem;
-            font-family: inherit;
-            background: #fafbfc;
-            transition: border 0.2s, box-shadow 0.2s;
-        }
-        input:focus, select:focus { outline: none; border-color: var(--primary-light); box-shadow: 0 0 0 3px rgba(42,82,152,0.1); background: #fff; }
+        input[type="number"], select { width: 100%; padding: 10px 12px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 0.95rem; font-family: inherit; background: #fafbfc; }
         .btn {
             padding: 12px 24px;
             border: none;
@@ -113,36 +90,22 @@
             gap: 8px;
         }
         .btn-primary { background: var(--primary); color: #fff; }
-        .btn-primary:hover { background: var(--primary-light); transform: translateY(-1px); box-shadow: 0 6px 15px rgba(30,58,95,0.3); }
+        .btn-primary:hover { background: var(--primary-light); transform: translateY(-1px); }
         .btn-secondary { background: #eef2f7; color: var(--text); }
         .btn-secondary:hover { background: #e0e8f0; }
         .btn-sm { padding: 8px 14px; font-size: 0.85rem; }
         .btn-group { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 15px; }
         .result-section { background: #f8fafc; border-left: 4px solid var(--primary); padding: 16px 18px; border-radius: var(--radius-sm); margin-bottom: 12px; }
         .result-line { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px dashed #e2e8f0; }
-        .result-line:last-child { border-bottom: none; }
-        .result-line .label { font-weight: 500; color: #3b4a5a; display: flex; align-items: center; gap: 6px; }
-        .result-line .value { font-weight: 700; font-variant-numeric: tabular-nums; }
         .result-line.total { background: #e8eff8; border-radius: 4px; padding: 8px 10px; font-weight: 700; font-size: 1.05rem; }
         .result-line.total .value { color: var(--primary); font-size: 1.2rem; }
-        .audit-item { background: #fff; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 10px 14px; margin-bottom: 8px; }
-        .audit-item .name { font-weight: 600; color: var(--primary); }
-        .audit-item .formula { font-size: 0.85rem; color: var(--muted); margin: 4px 0; }
-        .audit-item .result { font-weight: 700; }
-        .alert { padding: 12px 16px; border-radius: var(--radius-sm); margin-bottom: 15px; font-weight: 500; font-size: 0.9rem; }
-        .alert-info { background: #e3f2fd; border-left: 4px solid #1e88e5; color: #0d47a1; }
-        .alert-warning { background: #fff8e1; border-left: 4px solid #f9a825; color: #795700; }
         .table-compare { width: 100%; border-collapse: collapse; margin-top: 10px; }
         .table-compare th, .table-compare td { padding: 8px 10px; text-align: right; border-bottom: 1px solid #e2e8f0; }
         .table-compare th { background: #f0f4f8; font-weight: 600; }
         .table-compare td:first-child { text-align: left; }
-        .hidden { display: none; }
-        .config-section { background: #f8fafc; border-radius: var(--radius-sm); padding: 15px; margin-bottom: 15px; border: 1px solid #e8edf4; }
-        .config-section h4 { margin-bottom: 10px; color: var(--primary); }
-        .param-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; }
-        .param-card { background: #fff; border-radius: var(--radius-sm); padding: 10px; border: 1px solid #e8edf4; }
-        .param-card label { font-weight: 600; font-size: 0.8rem; }
-        .param-card input { margin-top: 4px; }
+        .alert { padding: 12px 16px; border-radius: var(--radius-sm); margin-bottom: 15px; font-weight: 500; font-size: 0.9rem; }
+        .alert-info { background: #e3f2fd; border-left: 4px solid #1e88e5; color: #0d47a1; }
+        .alert-warning { background: #fff8e1; border-left: 4px solid #f9a825; color: #795700; }
     </style>
 </head>
 <body>
@@ -232,7 +195,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Salariu de funcție bază (SF0, lei)</label>
-                                <input type="number" id="calc-sf0" value="4000" step="10">
+                                <input type="number" id="calc-sf0" value="0" step="10">
                                 <div class="hint">Introduceți salariul de funcție de referință înainte de aplicarea gradației.</div>
                             </div>
                             <div class="form-group">
@@ -274,7 +237,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Compensație risc / pericol (%)</label>
-                                <input type="number" id="calc-risc-procent" value="30" min="0" max="30" step="0.5">
+                                <input type="number" id="calc-risc-procent" value="0" min="0" max="30" step="0.5">
                             </div>
                             <div class="form-group">
                                 <label>Funcție de comandă</label>
@@ -286,7 +249,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Număr subordonați</label>
-                                <input type="number" id="calc-subordonati" value="3" min="0">
+                                <input type="number" id="calc-subordonati" value="0" min="0">
                             </div>
                             <div class="form-group">
                                 <label>Spor condiții periculoase (%)</label>
@@ -398,11 +361,11 @@
                             </div>
                             <div class="form-group">
                                 <label>Salariu grad profesional (lei)</label>
-                                <input type="number" id="ver-salariu-grad" value="2145" step="1">
+                                <input type="number" id="ver-salariu-grad" value="0" step="1">
                             </div>
                             <div class="form-group">
                                 <label>Salariu de funcție bază (SF0, lei)</label>
-                                <input type="number" id="ver-sf0" value="4000" step="10">
+                                <input type="number" id="ver-sf0" value="0" step="10">
                             </div>
                             <div class="form-group">
                                 <label>Gradație (0-7)</label>
@@ -435,7 +398,7 @@
                             </div>
                             <div class="form-group">
                                 <label>Compensație risc (%)</label>
-                                <input type="number" id="ver-risc-procent" value="30" min="0" max="30" step="0.5">
+                                <input type="number" id="ver-risc-procent" value="0" min="0" max="30" step="0.5">
                             </div>
                             <div class="form-group">
                                 <label>Spor condiții grele (%)</label>
@@ -480,39 +443,39 @@
                         <form id="form-verificare-fluturas">
                             <div class="form-group">
                                 <label>Salariu funcție aflat în plată (lei)</label>
-                                <input type="number" id="ver-flut-sf" value="5025" step="10">
+                                <input type="number" id="ver-flut-sf" value="0" step="10">
                             </div>
                             <div class="form-group">
                                 <label>Salariu grad profesional (lei)</label>
-                                <input type="number" id="ver-flut-grad" value="2145" step="1">
+                                <input type="number" id="ver-flut-grad" value="0" step="1">
                             </div>
                             <div class="form-group">
                                 <label>Gradație (lei)</label>
-                                <input type="number" id="ver-flut-gradatie" value="78" step="1">
+                                <input type="number" id="ver-flut-gradatie" value="0" step="1">
                             </div>
                             <div class="form-group">
                                 <label>Spor condiții grele (lei)</label>
-                                <input type="number" id="ver-flut-grele" value="186" step="1">
+                                <input type="number" id="ver-flut-grele" value="0" step="1">
                             </div>
                             <div class="form-group">
                                 <label>Spor condiții vătămătoare (lei)</label>
-                                <input type="number" id="ver-flut-vatamatoare" value="124" step="1">
+                                <input type="number" id="ver-flut-vatamatoare" value="0" step="1">
                             </div>
                             <div class="form-group">
                                 <label>Spor studii superioare (lei)</label>
-                                <input type="number" id="ver-flut-studii" value="141" step="1">
+                                <input type="number" id="ver-flut-studii" value="0" step="1">
                             </div>
                             <div class="form-group">
                                 <label>Spor ANP (lei)</label>
-                                <input type="number" id="ver-flut-spor-anp" value="710" step="1">
+                                <input type="number" id="ver-flut-spor-anp" value="0" step="1">
                             </div>
                             <div class="form-group">
                                 <label>Majorare OUG 26 (lei)</label>
-                                <input type="number" id="ver-flut-oug26" value="1256" step="1">
+                                <input type="number" id="ver-flut-oug26" value="0" step="1">
                             </div>
                             <div class="form-group">
                                 <label>Art. 38 (lei)</label>
-                                <input type="number" id="ver-flut-art38" value="408" step="1">
+                                <input type="number" id="ver-flut-art38" value="0" step="1">
                             </div>
                             <div class="form-group">
                                 <label>Alte sporuri (lei)</label>
@@ -524,12 +487,13 @@
                             </div>
                             <div class="form-group">
                                 <label>Cotizație sindicală (lei)</label>
-                                <input type="number" id="ver-flut-sindicat" value="20" step="1">
+                                <input type="number" id="ver-flut-sindicat" value="0" step="1">
                             </div>
                         </form>
                     </div>
                     <div class="btn-group">
                         <button type="button" class="btn btn-primary" onclick="verificaFluturas()">📊 Verifică</button>
+                        <button type="button" class="btn btn-secondary" onclick="preiaValoriDinFluturas()">📥 Preia valorile din fluturaș ca parametri</button>
                         <button type="button" class="btn btn-secondary" onclick="reseteazaVerificare()">🔄 Reset</button>
                     </div>
                 </div>
@@ -549,6 +513,8 @@
             <div class="card">
                 <h2>⚙️ Parametri de configurare</h2>
                 <p class="text-muted">Modificați procentele și valorile conform legislației aplicabile.</p>
+                <!-- Configurare identică cu versiunea anterioară, dar cu valorile implicite 0 sau prestabilite -->
+                <!-- Pentru lizibilitate, puteți folosi aceleași câmpuri, dar cu valori corecte -->
                 <div class="config-section">
                     <h4>Gradație</h4>
                     <div class="param-grid">
@@ -842,9 +808,6 @@
         function toggleProiecte() {}
         function toggleComanda() {}
         function updateGradatiePreview() {
-            const grad = parseInt(document.getElementById('calc-gradatie').value);
-            const sf0 = parseFloat(document.getElementById('calc-sf0').value) || 0;
-            const sfGrad = aplicaGradatia(sf0, grad);
             // Poate fi extins
         }
 
@@ -883,15 +846,7 @@
 
             const auditLog = [];
 
-            // 1. Salariu funcție după gradație
             const sfGrad = aplicaGradatia(sf0, gradatie);
-            auditLog.push({
-                name: 'Salariu funcție după gradație',
-                formula: `SF0 × (1 + ${config.gradatieProcent}%)^${gradatie}`,
-                result: sfGrad
-            });
-
-            // 2. Majorări pe bază SF grad
             const art19Val = sfGrad * (config.art19 / 100);
             const art23Val = structuraCentrala ? sfGrad * (config.art23 / 100) : 0;
             const specialistProcent = {0:0, 3: config.specialist3, 2: config.specialist2, 1: config.specialist1}[specialist] || 0;
@@ -900,16 +855,8 @@
             const auditVal = auditBifat ? sfGrad * (config.audit / 100) : 0;
             const proiecteVal = proiecte ? (sfGrad * (proiecteProcent / 100) * (proiecteOre / proiecteTotalOre)) : 0;
             const alteMajorariVal = sfGrad * (alteMajorariProcent / 100);
-
-            // 3. Salariu funcție majorat
             const sfMajorat = sfGrad + art19Val + art23Val + specialistVal + cfpVal + auditVal + proiecteVal + alteMajorariVal;
-            auditLog.push({
-                name: 'Salariu funcție majorat',
-                formula: 'SF_grad + majorări (art.19, art.23, specialist, CFP, audit, proiecte, altele)',
-                result: sfMajorat
-            });
 
-            // 4. Sporuri / compensații
             const riscVal = sfMajorat * (riscProcent / 100);
             const periculoaseVal = sfMajorat * (periculoaseProcent / 100);
             const greleVal = sfMajorat * (greleProcent / 100);
@@ -922,7 +869,6 @@
             const misiuniVal = sfMajorat * (misiuniProcent / 100);
             const oug26Val = sfMajorat * (oug26Procent / 100);
 
-            // 5. Salariu de comandă
             let comandaProcent = 0;
             if (comandaTip === 'sef_formatiune_I' && subordonati >= 3) {
                 comandaProcent = config.comandaI;
@@ -931,49 +877,9 @@
             }
             const comandaVal = sfMajorat * (comandaProcent / 100);
 
-            // 6. Venit brut
             const venitBrut = sfMajorat + riscVal + periculoaseVal + greleVal + noapteVal + confidentialitateVal + studiiSuperioareVal + pazaVal + caiCainiVal + zonaIzolataVal + misiuniVal + oug26Val + comandaVal + salariuGrad + oreValoare + istorice;
-            auditLog.push({
-                name: 'Venit brut',
-                formula: 'SF majorat + sporuri + compensații + salariu grad + comandă + ore + drepturi istorice',
-                result: venitBrut
-            });
-
-            // 7. Taxe (cu cotizație sindicală dedusă înainte de impozit)
             const taxe = calculeazaTaxe(venitBrut, deducere, cotizatieSindicat);
-            auditLog.push({
-                name: 'CAS',
-                formula: `Brut × ${config.cas}%`,
-                result: taxe.cas
-            });
-            auditLog.push({
-                name: 'CASS',
-                formula: `Brut × ${config.cass}%`,
-                result: taxe.cass
-            });
-            auditLog.push({
-                name: 'Bază impozit',
-                formula: 'Brut - CAS - CASS - Deducere - Cotizație sindicală',
-                result: taxe.bazaImpozit
-            });
-            auditLog.push({
-                name: 'Impozit',
-                formula: `Bază impozit × ${config.impozit}%`,
-                result: taxe.impozit
-            });
-            auditLog.push({
-                name: 'Salariu net',
-                formula: 'Brut - CAS - CASS - Impozit',
-                result: taxe.net
-            });
-
-            // 8. Rest de plată
             const restPlata = taxe.net + neimpozabile;
-            auditLog.push({
-                name: 'Rest de plată',
-                formula: 'Salariu net + drepturi neimpozabile',
-                result: restPlata
-            });
 
             // Afișare rezultat
             const rez = document.getElementById('rezultat-calcul');
@@ -1015,15 +921,15 @@
                 </div>
             `;
 
-            // Afișare audit
+            // Audit
             const auditDiv = document.getElementById('audit-calcul');
-            auditDiv.innerHTML = auditLog.map(item => `
-                <div class="audit-item">
-                    <div class="name">${item.name}</div>
-                    <div class="formula">${item.formula}</div>
-                    <div class="result">${formatLei(item.result)}</div>
-                </div>
-            `).join('');
+            auditDiv.innerHTML = `
+                <div class="audit-item"><div class="name">Salariu funcție bază (SF0)</div><div class="result">${formatLei(sf0)}</div></div>
+                <div class="audit-item"><div class="name">Salariu funcție după gradație</div><div class="formula">SF0 × (1 + ${config.gradatieProcent}%)^${gradatie}</div><div class="result">${formatLei(sfGrad)}</div></div>
+                <div class="audit-item"><div class="name">Salariu funcție majorat</div><div class="result">${formatLei(sfMajorat)}</div></div>
+                <div class="audit-item"><div class="name">Venit brut</div><div class="result">${formatLei(venitBrut)}</div></div>
+                <div class="audit-item"><div class="name">Salariu net</div><div class="result">${formatLei(taxe.net)}</div></div>
+            `;
         }
 
         function reseteazaFormCalcul() {
@@ -1033,18 +939,18 @@
             document.getElementById('calc-categorie').value = 'politist_penitenciare';
             document.getElementById('calc-corp').value = 'agenti';
             document.getElementById('calc-tip-functie').value = 'executie';
-            document.getElementById('calc-vechime-ani').value = 5;
-            document.getElementById('calc-vechime-luni').value = 4;
-            document.getElementById('calc-gradatie').value = '1';
-            document.getElementById('calc-sf0').value = 4000;
-            document.getElementById('calc-specialist').value = '1';
+            document.getElementById('calc-vechime-ani').value = 0;
+            document.getElementById('calc-vechime-luni').value = 0;
+            document.getElementById('calc-gradatie').value = '0';
+            document.getElementById('calc-sf0').value = 0;
+            document.getElementById('calc-specialist').value = '0';
             document.getElementById('calc-structura-centrala').value = 'nu';
             document.getElementById('calc-cfp').value = 'nu';
             document.getElementById('calc-audit').value = 'nu';
             document.getElementById('calc-proiecte').value = 'nu';
-            document.getElementById('calc-risc-procent').value = 30;
+            document.getElementById('calc-risc-procent').value = 0;
             document.getElementById('calc-comanda').value = 'nu';
-            document.getElementById('calc-subordonati').value = 3;
+            document.getElementById('calc-subordonati').value = 0;
             document.getElementById('calc-periculoase-procent').value = 0;
             document.getElementById('calc-grele-procent').value = 0;
             document.getElementById('calc-noapte-procent').value = 0;
@@ -1068,8 +974,37 @@
         }
 
         // ======================= VERIFICARE FLUTURAȘ =======================
+        function preiaValoriDinFluturas() {
+            const flutSF = parseFloat(document.getElementById('ver-flut-sf').value) || 0;
+            const flutGradatie = parseFloat(document.getElementById('ver-flut-gradatie').value) || 0;
+            const flutSporANP = parseFloat(document.getElementById('ver-flut-spor-anp').value) || 0;
+            const flutOug26 = parseFloat(document.getElementById('ver-flut-oug26').value) || 0;
+            const flutGrele = parseFloat(document.getElementById('ver-flut-grele').value) || 0;
+            const flutVatamatoare = parseFloat(document.getElementById('ver-flut-vatamatoare').value) || 0;
+            const flutStudii = parseFloat(document.getElementById('ver-flut-studii').value) || 0;
+
+            const gradatie = parseInt(document.getElementById('ver-gradatie').value) || 0;
+            const sf0Nou = flutSF / Math.pow(1 + config.gradatieProcent / 100, gradatie);
+            document.getElementById('ver-sf0').value = sf0Nou.toFixed(0);
+
+            const sfGrad = sf0Nou * Math.pow(1 + config.gradatieProcent / 100, gradatie);
+            const sfMajorat = sfGrad;
+
+            const riscProcent = (flutSporANP / sfMajorat * 100).toFixed(1);
+            document.getElementById('ver-risc-procent').value = riscProcent;
+            const greleProcent = (flutGrele / sfMajorat * 100).toFixed(1);
+            document.getElementById('ver-grele-procent').value = greleProcent;
+            const vatamatoareProcent = (flutVatamatoare / sfMajorat * 100).toFixed(1);
+            document.getElementById('ver-vatamatoare-procent').value = vatamatoareProcent;
+            const studiiProcent = (flutStudii / sfMajorat * 100).toFixed(1);
+            document.getElementById('ver-studii-superioare-procent').value = studiiProcent;
+            const oug26Procent = (flutOug26 / sfMajorat * 100).toFixed(1);
+            document.getElementById('ver-oug26-procent').value = oug26Procent;
+
+            alert('Parametrii au fost ajustați pe baza valorilor din fluturaș.');
+        }
+
         function verificaFluturas() {
-            // Preia parametri de calcul
             const corp = document.getElementById('ver-corp').value;
             const gradProf = document.getElementById('ver-grad-profesional').value;
             const salariuGrad = parseFloat(document.getElementById('ver-salariu-grad').value) || 0;
@@ -1085,16 +1020,14 @@
             const alteMajorariProcent = parseFloat(document.getElementById('ver-alte-majorari-procent').value) || 0;
             const oreValoare = parseFloat(document.getElementById('ver-ore-valoare').value) || 0;
             const istorice = parseFloat(document.getElementById('ver-istorice').value) || 0;
-            const deducereCalc = parseFloat(document.getElementById('ver-deducere').value) || 0;
-            const cotizatieSindicatCalc = parseFloat(document.getElementById('ver-cotizatie-sindicat').value) || 0;
 
-            // Calculează componentele teoretice
             const sfGrad = aplicaGradatia(sf0, gradatie);
             const specialistProcent = {0:0, 3: config.specialist3, 2: config.specialist2, 1: config.specialist1}[specialist] || 0;
             const art19Val = sfGrad * (config.art19 / 100);
             const art23Val = structuraCentrala ? sfGrad * (config.art23 / 100) : 0;
             const specialistVal = sfGrad * (specialistProcent / 100);
             const sfMajorat = sfGrad + art19Val + art23Val + specialistVal;
+
             const riscVal = sfMajorat * (riscProcent / 100);
             const greleVal = sfMajorat * (greleProcent / 100);
             const vatamatoareVal = sfMajorat * (vatamatoareProcent / 100);
@@ -1102,7 +1035,6 @@
             const oug26Val = sfMajorat * (oug26Procent / 100);
             const totalComponente = sfMajorat + salariuGrad + riscVal + greleVal + vatamatoareVal + studiiVal + oug26Val + oreValoare + istorice;
 
-            // Preia valorile din fluturaș
             const flutSF = parseFloat(document.getElementById('ver-flut-sf').value) || 0;
             const flutGrad = parseFloat(document.getElementById('ver-flut-grad').value) || 0;
             const flutGradatie = parseFloat(document.getElementById('ver-flut-gradatie').value) || 0;
@@ -1114,25 +1046,22 @@
             const flutArt38 = parseFloat(document.getElementById('ver-flut-art38').value) || 0;
             const flutAltele = parseFloat(document.getElementById('ver-flut-altele').value) || 0;
 
-            // Comparație componente
             const diferente = [
                 { nume: 'Salariu funcție', flut: flutSF, calc: sfMajorat },
                 { nume: 'Salariu grad', flut: flutGrad, calc: salariuGrad },
-                { nume: 'Gradație', flut: flutGradatie, calc: sfGrad - sf0 }, // diferența gradației
+                { nume: 'Gradație', flut: flutGradatie, calc: sfGrad - sf0 },
                 { nume: 'Spor condiții grele', flut: flutGrele, calc: greleVal },
                 { nume: 'Spor condiții vătămătoare', flut: flutVatamatoare, calc: vatamatoareVal },
                 { nume: 'Spor studii superioare', flut: flutStudii, calc: studiiVal },
-                { nume: 'Spor ANP', flut: flutSporANP, calc: riscVal }, // presupunem că ANP = risc
+                { nume: 'Spor ANP', flut: flutSporANP, calc: riscVal },
                 { nume: 'Majorare OUG 26', flut: flutOug26, calc: oug26Val },
-                { nume: 'Art. 38', flut: flutArt38, calc: 0 }, // nu avem o regulă specifică
+                { nume: 'Art. 38', flut: flutArt38, calc: 0 },
                 { nume: 'Alte sporuri', flut: flutAltele, calc: 0 }
             ];
 
-            // Totaluri brute
             const totalFlut = flutSF + flutGrad + flutGradatie + flutGrele + flutVatamatoare + flutStudii + flutSporANP + flutOug26 + flutArt38 + flutAltele;
             const totalCalc = sfMajorat + salariuGrad + (sfGrad - sf0) + greleVal + vatamatoareVal + studiiVal + riscVal + oug26Val;
 
-            // Afișare tabel comparativ
             const rez = document.getElementById('rezultat-verificare');
             let html = '<div class="result-section"><table class="table-compare"><tr><th>Componentă</th><th>Fluturaș</th><th>Calcul</th><th>Diferență</th></tr>';
             diferente.forEach(d => {
@@ -1148,12 +1077,12 @@
             document.getElementById('form-verificare-fluturas').reset();
             document.getElementById('ver-corp').value = 'agenti';
             populeazaGradeVerificare();
-            document.getElementById('ver-salariu-grad').value = 2145;
-            document.getElementById('ver-sf0').value = 4000;
-            document.getElementById('ver-gradatie').value = '1';
-            document.getElementById('ver-specialist').value = '1';
+            document.getElementById('ver-salariu-grad').value = 0;
+            document.getElementById('ver-sf0').value = 0;
+            document.getElementById('ver-gradatie').value = '0';
+            document.getElementById('ver-specialist').value = '0';
             document.getElementById('ver-structura-centrala').value = 'nu';
-            document.getElementById('ver-risc-procent').value = 30;
+            document.getElementById('ver-risc-procent').value = 0;
             document.getElementById('ver-grele-procent').value = 0;
             document.getElementById('ver-vatamatoare-procent').value = 0;
             document.getElementById('ver-studii-superioare-procent').value = 0;
@@ -1163,18 +1092,18 @@
             document.getElementById('ver-istorice').value = 0;
             document.getElementById('ver-deducere').value = 0;
             document.getElementById('ver-cotizatie-sindicat').value = 0;
-            document.getElementById('ver-flut-sf').value = 5025;
-            document.getElementById('ver-flut-grad').value = 2145;
-            document.getElementById('ver-flut-gradatie').value = 78;
-            document.getElementById('ver-flut-grele').value = 186;
-            document.getElementById('ver-flut-vatamatoare').value = 124;
-            document.getElementById('ver-flut-studii').value = 141;
-            document.getElementById('ver-flut-spor-anp').value = 710;
-            document.getElementById('ver-flut-oug26').value = 1256;
-            document.getElementById('ver-flut-art38').value = 408;
+            document.getElementById('ver-flut-sf').value = 0;
+            document.getElementById('ver-flut-grad').value = 0;
+            document.getElementById('ver-flut-gradatie').value = 0;
+            document.getElementById('ver-flut-grele').value = 0;
+            document.getElementById('ver-flut-vatamatoare').value = 0;
+            document.getElementById('ver-flut-studii').value = 0;
+            document.getElementById('ver-flut-spor-anp').value = 0;
+            document.getElementById('ver-flut-oug26').value = 0;
+            document.getElementById('ver-flut-art38').value = 0;
             document.getElementById('ver-flut-altele').value = 0;
             document.getElementById('ver-flut-deducere').value = 0;
-            document.getElementById('ver-flut-sindicat').value = 20;
+            document.getElementById('ver-flut-sindicat').value = 0;
             document.getElementById('rezultat-verificare').innerHTML = '<div class="alert alert-info">Introduceți parametrii și valorile din fluturaș, apoi apăsați „Verifică”.</div>';
         }
 
